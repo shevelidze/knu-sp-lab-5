@@ -1,13 +1,14 @@
 from ply.lex import lex
 from ply.yacc import yacc
 
-tokens = ( 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'NUMBER' )
+tokens = ( 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'NUMBER', 'POW')
 
 t_ignore = ' \t'
 
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
+t_POW = r'\^'
 t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -29,8 +30,8 @@ lexer = lex()
     
 def p_expression(p):
     '''
-    expression : term PLUS term
-               | term MINUS term
+    expression : expression PLUS term
+               | expression MINUS term
     '''
     p[0] = ('binop', p[2], p[1], p[3])
 
@@ -42,8 +43,9 @@ def p_expression_term(p):
 
 def p_term(p):
     '''
-    term : factor TIMES factor
-         | factor DIVIDE factor
+    term : term TIMES factor
+         | term DIVIDE factor
+         | term POW factor
     '''
     p[0] = ('binop', p[2], p[1], p[3])
 

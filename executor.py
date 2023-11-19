@@ -6,6 +6,7 @@ class Executor:
             '-': lambda a, b: ('number', a[1] - b[1]),
             '*': lambda a, b: ('number', a[1] * b[1]),
             '/': lambda a, b: ('number', a[1] / b[1]),
+            '^': lambda a, b: ('number', a[1] ** b[1]),
         }
 
         self.unary_operations_semantics = {
@@ -41,7 +42,7 @@ class Executor:
                     self.__execute_operation(operation[2])
                 )
             else:
-                raise RuntimeError(f'Unknown unary operation {factor}')
+                raise RuntimeError(f'Unknown unary operation {operator}')
         else:
             raise RuntimeError(f'Unknown operation type {operation_type}')
  
