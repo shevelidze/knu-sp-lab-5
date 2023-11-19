@@ -13,8 +13,8 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 
 def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+    r'\d+(\.\d+)?'
+    t.value = float(t.value)
     return t
 
 def t_ignore_newline(t):
