@@ -15,7 +15,10 @@ class Executor:
         }
 
     def execute(self):
-        return self.__execute_operation(self.ast)
+        try:
+            return self.__execute_operation(self.ast)
+        except Exception as e:
+            return ('error', str(e))
 
     def __execute_operation(self, operation):
         operation_type = operation[0];

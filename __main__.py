@@ -15,7 +15,10 @@ executor = Executor(ast)
 
 ete_tree = Tree(get_ast_newick(ast), format=1)
 
-print('Execution result:', executor.execute()[1])
+execution_result_token = executor.execute()
+execution_result = f'Error: {execution_result_token[1]}' if execution_result_token[0] == 'error' else execution_result_token[1]
+
+print('Execution result:', execution_result)
 print('ASCII tree representation: ', ete_tree.get_ascii())
 
 ete_tree.show()
